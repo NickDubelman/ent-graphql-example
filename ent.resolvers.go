@@ -19,12 +19,8 @@ func (r *queryResolver) Nodes(ctx context.Context, ids []int) ([]ent.Noder, erro
 }
 
 // Todos is the resolver for the todos field.
-func (r *queryResolver) Todos(ctx context.Context, after *ent.Cursor, first *int, before *ent.Cursor, last *int, orderBy *ent.TodoOrder, where *ent.TodoWhereInput) (*ent.TodoConnection, error) {
-	return r.client.Todo.Query().
-		Paginate(ctx, after, first, before, last,
-			ent.WithTodoOrder(orderBy),
-			ent.WithTodoFilter(where.Filter),
-		)
+func (r *queryResolver) Todos(ctx context.Context) ([]*ent.Todo, error) {
+	return r.client.Debug().Todo.Query().All(ctx)
 }
 
 // Query returns QueryResolver implementation.
